@@ -1,0 +1,174 @@
+.home {
+  width: 81.73vw;
+  height: 100%;
+  position: relative;
+}
+
+.home-container {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 0 17.75%;
+}
+
+/* Content */
+.home-content {
+  display: flex;
+  flex-direction: column;
+  width: 32.81vw;
+  height: 100%;
+}
+
+.insta-btn {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 0;
+  width: 70px;
+  height: 66px;
+  box-sizing: border-box;
+  align-items: center;
+  cursor: pointer;
+}
+.logo-circle img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.logo-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid rgb(219, 219, 219);
+  padding: 2px;
+}
+.insta-btn > .logo-circle {
+  width: 56px;
+}
+.lighter {
+  border: 1px solid rgb(230, 230, 230);
+}
+
+.insta-btn h5 {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgb(115, 115, 115);
+  text-align: center;
+  margin-top: 0.25rem;
+  display: block;
+  width: 100%;
+  height: 100%;
+  color-scheme: light;
+}
+
+/* Right Side */
+.home-right-side {
+  display: flex;
+  flex-direction: column;
+  width: 16.64vw;
+  height: 100%;
+  padding-left: 4rem;
+}
+.right-side-content {
+  padding: 0px 1rem;
+}
+
+.account {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.account-icon {
+  margin-right: 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid rgb(210, 210, 210);
+  background-color: rgb(241, 241, 241);
+}
+.account svg {
+  width: 2.8rem;
+  height: 2.8rem;
+}
+
+.names {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.875rem;
+}
+.names h4 {
+  color: #000000;
+  font-weight: 600;
+  cursor: pointer;
+}
+.names h5 {
+  color: #737373;
+  font-weight: 400;
+}
+
+.account span {
+  color: #0095f6;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
+}
+.account span:hover {
+  color: #00426e;
+}
+
+.suggested {
+  padding: 23px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.suggested h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(115, 115, 115);
+}
+.suggested span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #000000;
+  cursor: pointer;
+}
+.suggested span:hover {
+  color: rgb(115, 115, 115);
+}
+
+.footer ul {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #c7c7c7;
+  line-height: 18px;
+  display: flex;
+  list-style: none;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-left: -3px;
+  margin-bottom: 16px;
+}
+.footer ul li {
+  cursor: pointer;
+  margin: 0 3px;
+}
+.footer ul li:hover {
+  text-decoration: underline;
+}
+
+.footer span {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #c7c7c7;
+  line-height: 18px;
+  margin-left: -3px;
+  margin-bottom: 16px;
+}

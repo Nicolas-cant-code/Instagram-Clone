@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Home.css";
 import Sidebar from "./Layout/Sidebar";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+import UserContext from "./userContext";
+import { auth } from "../firebase";
+import Footer from "./Layout/Footer";
 
 const Home = () => {
+  const userContext = useContext(UserContext);
+  const { user } = userContext;
+
+  const handleSwitch = () => {
+    if (user) {
+      auth.signOut();
+    }
+  };
+
   return (
     <div className="home">
       <div className="home-container">
@@ -26,10 +38,12 @@ const Home = () => {
             <div className="account">
               <PersonRoundedIcon className="account-icon" />
               <div className="names">
-                <h4>Account name</h4>
-                <h5>Name</h5>
+                <h4>{user !== null ? user.username : "Guest"}</h4>
+                <h5>{user !== null ? user.name : "Guest name"}</h5>
               </div>
-              <span>Switch</span>
+              <a href="/login" onClick={handleSwitch}>
+                Switch
+              </a>
             </div>
             <div className="suggested">
               <h4>Suggested for you</h4>

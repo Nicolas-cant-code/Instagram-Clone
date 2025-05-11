@@ -16,7 +16,7 @@
   padding: 11px 0px;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  border-bottom: 1px solid rgb(220, 220, 220);
+  border-bottom: 1px solid rgb(219, 219, 219);
   width: 100%;
   text-align: center;
   font-weight: 600;
@@ -58,4 +58,89 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.65);
   z-index: 999;
+}
+
+.create-post {
+  display: flex;
+  width: 100%;
+  min-height: 60vh;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+.create-post img {
+  width: 65%;
+  max-height: 90vh;
+  object-fit: cover;
+  border-bottom-left-radius: 12px;
+  background-color: transparent;
+}
+
+.create-post label {
+  margin-top: 12px;
+  font-size: 20px;
+  padding-bottom: 0.75em;
+}
+
+.create-post textarea {
+  box-sizing: border-box;
+  width: 100%;
+  outline: none;
+  height: 40%;
+  border: none;
+  padding: 0 1em;
+  overflow-y: auto;
+  resize: none;
+  font-size: 16px;
+}
+
+.back {
+  position: absolute;
+  top: 7px;
+  left: 10px;
+}
+.back svg {
+  width: 40px;
+  height: 30px;
+  color: rgb(0, 149, 246);
+  cursor: pointer;
+}
+.back svg:hover {
+  color: rgb(0, 86, 148);
+  transition: 0.2s;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  padding-left: 1em;
+}
+
+.post-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+}
+
+.post-content p {
+  text-align: end;
+  padding-right: 1em;
+  font-size: 12px;
+  margin-top: 1em;
+  color: rgb(142, 142, 142);
+  border-bottom: 1px solid rgb(219, 219, 219);
+  padding-bottom: 1em;
+}
+
+.post-button {
+  color: rgb(0, 149, 246);
+  font-weight: 600;
+  text-align: end;
+  margin-top: 1em;
+  padding-right: 1em;
+  cursor: pointer;
+}
+.post-button:hover {
+  color: rgb(0, 86, 148);
+  transition: 0.2s;
 }

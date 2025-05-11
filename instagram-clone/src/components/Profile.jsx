@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Profile.css";
 import UserContext from "./userContext";
-import { useContext } from "react";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
@@ -10,11 +9,41 @@ import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded
 import PortraitRoundedIcon from "@mui/icons-material/PortraitRounded";
 import Footer from "./Layout/Footer";
 import Create from "./Create";
+import Posts from "./Posts";
+import { db } from "../firebase";
 
 const Profile = () => {
   const userContext = useContext(UserContext);
   const { user } = userContext;
+  const { username, profile_pic, name, posts, followers, following } =
+    user || {};
+  const [post, setPost] = useState([]);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchUserPosts = async () => {
+      try {
+        const snapshot = await db
+          .collection("posts")
+          .where("userId", "==", user.uid) // Filter posts by userId
+          .orderBy("timestamp", "desc") // Order posts by timestamp
+          .get();
+
+        const userPosts = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setPost(userPosts);
+      } catch (error) {
+        console.error("Error fetching user posts:", error);
+      }
+    };
+
+    if (user) {
+      fetchUserPosts();
+    }
+  }, [user]);
 
   const handleIconClick = () => {
     setIsCreateModalOpen(true);
@@ -35,7 +64,7 @@ const Profile = () => {
       <div className="profile-container">
         <div className="top-section">
           <div className="profile-pic">
-            {user.profile_pic === "" ? (
+            {profile_pic === "" ? (
               <>
                 <PersonRoundedIcon className="account-icon" />
                 <div className="picture">
@@ -51,32 +80,28 @@ const Profile = () => {
                 </div>
               </>
             ) : (
-              <img src="" alt="profile photo" />
+              <img src={profile_pic} alt="profile photo" />
             )}
           </div>
           <div className="profile-info">
             <div className="profile-username">
-              <span>{user.username}</span>
+              <span>{username}</span>
               <button>Edit profile</button>
               <button>View archive</button>
               <SettingsOutlinedIcon className="settings-icon" />
             </div>
             <div className="follow">
               <p>
-                {/* */}
-                <strong>0</strong> posts
+                <strong>{posts}</strong> posts
               </p>
               <p>
-                {" "}
-                {/* */}
-                <strong>0</strong> followers
+                <strong>{followers}</strong> followers
               </p>
               <p>
-                {/* */}
-                <strong>0</strong> following
+                <strong>{following}</strong> following
               </p>
             </div>
-            <span className="profile-name">{user.name}</span>
+            <span className="profile-name">{name}</span>
           </div>
         </div>
         <div className="highlights">
@@ -102,52 +127,66 @@ const Profile = () => {
               <p>TAGGED</p>
             </div>
           </div>
-          <div className="photos" onClick={() => handleIconClick("Create")}>
-            <svg
-              aria-label="When you share photos, they will appear on your profile."
-              class="x1lliihq x1n2onr6 x5n08af"
-              fill="currentColor"
-              height="62"
-              role="img"
-              viewBox="0 0 96 96"
-              width="62"
-            >
-              <title>
-                When you share photos, they will appear on your profile.
-              </title>
-              <circle
-                cx="48"
-                cy="48"
-                fill="none"
-                r="47"
-                stroke="currentColor"
-                stroke-miterlimit="10"
-                stroke-width="2"
-              ></circle>
-              <ellipse
-                cx="48.002"
-                cy="49.524"
-                fill="none"
-                rx="10.444"
-                ry="10.476"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-width="2.095"
-              ></ellipse>
-              <path
-                d="M63.994 69A8.02 8.02 0 0 0 72 60.968V39.456a8.023 8.023 0 0 0-8.01-8.035h-1.749a4.953 4.953 0 0 1-4.591-3.242C56.61 25.696 54.859 25 52.469 25h-8.983c-2.39 0-4.141.695-5.181 3.178a4.954 4.954 0 0 1-4.592 3.242H32.01a8.024 8.024 0 0 0-8.012 8.035v21.512A8.02 8.02 0 0 0 32.007 69Z"
-                fill="none"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-width="2"
-              ></path>
-            </svg>
-          </div>
-          <h2>Share Photos</h2>
-          <h4>When you share photos, they will appear on your profile.</h4>
-          <span onClick={() => handleIconClick("Create")}>
-            Share your first photo
-          </span>
+          {posts < 1 ? (
+            <>
+              <div className="photos" onClick={() => handleIconClick("Create")}>
+                <svg
+                  aria-label="When you share photos, they will appear on your profile."
+                  class="x1lliihq x1n2onr6 x5n08af"
+                  fill="currentColor"
+                  height="62"
+                  role="img"
+                  viewBox="0 0 96 96"
+                  width="62"
+                >
+                  <title>
+                    When you share photos, they will appear on your profile.
+                  </title>
+                  <circle
+                    cx="48"
+                    cy="48"
+                    fill="none"
+                    r="47"
+                    stroke="currentColor"
+                    strokeMiterlimit="10"
+                    strokeWidth="2"
+                  ></circle>
+                  <ellipse
+                    cx="48.002"
+                    cy="49.524"
+                    fill="none"
+                    rx="10.444"
+                    ry="10.476"
+                    stroke="currentColor"
+                    strokeLinejoin="round"
+                    strokeWidth="2.095"
+                  ></ellipse>
+                  <path
+                    d="M63.994 69A8.02 8.02 0 0 0 72 60.968V39.456a8.023 8.023 0 0 0-8.01-8.035h-1.749a4.953 4.953 0 0 1-4.591-3.242C56.61 25.696 54.859 25 52.469 25h-8.983c-2.39 0-4.141.695-5.181 3.178a4.954 4.954 0 0 1-4.592 3.242H32.01a8.024 8.024 0 0 0-8.012 8.035v21.512A8.02 8.02 0 0 0 32.007 69Z"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                  ></path>
+                </svg>
+              </div>
+              <h2>Share Photos</h2>
+              <h4>When you share photos, they will appear on your profile.</h4>
+              <span onClick={() => handleIconClick("Create")}>
+                Share your first photo
+              </span>{" "}
+            </>
+          ) : (
+            <div className="user-posts">
+              {post.map((post) => (
+                <img
+                  src={post.imageUrl}
+                  alt="Post"
+                  className="profile-post-image"
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <Footer />
@@ -188,7 +227,7 @@ const Profile = () => {
             </svg>
           </div>
           <div onClick={(e) => e.stopPropagation()}>
-            <Create />
+            <Create closeModal={closeModal} />
           </div>
         </div>
       )}

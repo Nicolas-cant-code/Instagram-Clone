@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./Home.css";
-import Sidebar from "./Layout/Sidebar";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import UserContext from "./userContext";
-import { auth } from "../firebase";
-import Footer from "./Layout/Footer";
+import { auth, db } from "../firebase";
+import Posts from "./Posts";
 
 const Home = () => {
   const userContext = useContext(UserContext);
@@ -16,11 +15,33 @@ const Home = () => {
     }
   };
 
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const snapshot = await db
+          .collection("posts")
+          .orderBy("timestamp", "desc")
+          .get();
+        const postsData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPosts(postsData);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <div className="home">
       <div className="home-container">
         <div className="home-content">
-          <div className="insta-btn">
+          {/* <div className="insta-btn">
             <div className="logo-circle">
               <div className="logo-circle lighter">
                 <img
@@ -30,8 +51,12 @@ const Home = () => {
               </div>
             </div>
             <h5>instagram</h5>
+          </div> */}
+          <div className="content">
+            {posts.map((post) => (
+              <Posts key={post.id} post={post} />
+            ))}
           </div>
-          <div className="content"></div>
         </div>
         <div className="home-right-side">
           <div className="right-side-content">

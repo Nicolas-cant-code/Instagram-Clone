@@ -38,7 +38,7 @@ function App() {
     <div className="app">
       <main>
         {/* Render Sidebar only if not on the /login route */}
-        {!isLoginPage && <Sidebar />}
+        {!isLoginPage && <Sidebar user={user} />}
         <UserContext.Provider value={{ user }}>
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />

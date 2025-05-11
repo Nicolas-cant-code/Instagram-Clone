@@ -6,6 +6,8 @@
   width: 17.45vw;
   height: 100vh;
   border-right: 1px solid rgb(219, 219, 219);
+  position: fixed;
+  z-index: 10;
 }
 
 .logo {

@@ -4,10 +4,12 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import UserContext from "./userContext";
 import { auth, db } from "../firebase";
 import Posts from "./Posts";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const userContext = useContext(UserContext);
   const { user } = userContext;
+  const { profile_pic } = user || {};
 
   const handleSwitch = () => {
     if (user) {
@@ -34,24 +36,15 @@ const Home = () => {
       }
     };
 
-    fetchPosts();
-  }, []);
+    if (user) {
+      fetchPosts();
+    }
+  }, [user]);
 
   return (
     <div className="home">
       <div className="home-container">
         <div className="home-content">
-          {/* <div className="insta-btn">
-            <div className="logo-circle">
-              <div className="logo-circle lighter">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxBzH8UEnwhZ3xdq-cC4D9_dK4nu_Cjk9p-Q&s"
-                  alt="Instagram Logo"
-                />
-              </div>
-            </div>
-            <h5>instagram</h5>
-          </div> */}
           <div className="content">
             {posts.map((post) => (
               <Posts key={post.id} post={post} />
@@ -61,12 +54,32 @@ const Home = () => {
         <div className="home-right-side">
           <div className="right-side-content">
             <div className="account">
-              <PersonRoundedIcon className="account-icon" />
+              <Link to="/profile">
+                {profile_pic === undefined ? (
+                  <PersonRoundedIcon
+                    className="account-icon"
+                    style={{ color: "black" }}
+                  />
+                ) : (
+                  <img
+                    src={profile_pic}
+                    alt="profile"
+                    style={{
+                      width: "2.8rem",
+                      height: "2.8rem",
+                      borderRadius: "50%",
+                    }}
+                    className="account-icon"
+                  />
+                )}
+              </Link>
               <div className="names">
-                <h4>{user !== null ? user.username : "Guest"}</h4>
+                <Link to="/profile">
+                  <h4>{user !== null ? user.username : "Guest"}</h4>
+                </Link>
                 <h5>{user !== null ? user.name : "Guest name"}</h5>
               </div>
-              <a href="/login" onClick={handleSwitch}>
+              <a className="switch" onClick={handleSwitch} href="/login">
                 Switch
               </a>
             </div>

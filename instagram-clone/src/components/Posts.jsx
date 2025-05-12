@@ -8,9 +8,11 @@ import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import "./Posts.css";
+import Edit from "./Edit";
 
 const Posts = ({ post }) => {
   const [user, setUser] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,6 +33,25 @@ const Posts = ({ post }) => {
 
   const { profile_pic, username } = user || {};
 
+  const handleEditClick = () => {
+    console.log(user);
+    if (user === null) {
+      return;
+    } else {
+      setIsEditModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setIsEditModalOpen(false);
+  };
+
+  const checkModal = (e) => {
+    if (!e.target.classList.contains("create")) {
+      setIsEditModalOpen(false);
+    }
+  };
+
   return (
     <div className="posts-container">
       <div className="poster-container">
@@ -47,7 +68,10 @@ const Posts = ({ post }) => {
           </span>
         </span>
         <div className="more">
-          <MoreHorizOutlinedIcon className="more-icon" />
+          <MoreHorizOutlinedIcon
+            className="more-icon"
+            onClick={handleEditClick}
+          />
         </div>
       </div>
       <div className="image-container">
@@ -65,6 +89,14 @@ const Posts = ({ post }) => {
           {post.caption}
         </span>
       </div>
+
+      {isEditModalOpen && (
+        <div className="modal-overlay" onClick={checkModal}>
+          <div onClick={(e) => e.stopPropagation()}>
+            <Edit user={user} closeModal={closeModal} post={post} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

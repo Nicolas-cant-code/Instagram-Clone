@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import "./Profile.css";
 import UserContext from "./userContext";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
@@ -9,16 +9,16 @@ import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded
 import PortraitRoundedIcon from "@mui/icons-material/PortraitRounded";
 import Footer from "./Layout/Footer";
 import Create from "./Create";
-import Posts from "./Posts";
 import { db } from "../firebase";
 
 const Profile = () => {
   const userContext = useContext(UserContext);
   const { user } = userContext;
-  const { username, profile_pic, name, posts, followers, following } =
-    user || {};
+  let { username, name, posts, followers, following } = user || {};
+  const [profile_pic, setProfilePic] = useState(user?.profile_pic || "");
   const [post, setPost] = useState([]);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const fetchUserPosts = async () => {
@@ -59,11 +59,37 @@ const Profile = () => {
     }
   };
 
+  const profilePicHandler = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageUrl = reader.result;
+        db.collection("users")
+          .doc(user.uid)
+          .update({
+            profile_pic: imageUrl,
+          })
+          .then(() => {
+            setProfilePic(imageUrl);
+            alert("Profile picture updated successfully");
+          })
+          .catch((error) => {
+            alert("Error updating profile picture:", error);
+          });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="profile">
       <div className="profile-container">
         <div className="top-section">
-          <div className="profile-pic">
+          <div
+            className="profile-pic"
+            onClick={() => fileInputRef.current.click()}
+          >
             {profile_pic === "" ? (
               <>
                 <PersonRoundedIcon className="account-icon" />
@@ -82,6 +108,14 @@ const Profile = () => {
             ) : (
               <img src={profile_pic} alt="profile photo" />
             )}
+            <input
+              ref={fileInputRef}
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={profilePicHandler}
+            />
           </div>
           <div className="profile-info">
             <div className="profile-username">
@@ -180,6 +214,7 @@ const Profile = () => {
             <div className="user-posts">
               {post.map((post) => (
                 <img
+                  key={post.id}
                   src={post.imageUrl}
                   alt="Post"
                   className="profile-post-image"
@@ -188,8 +223,9 @@ const Profile = () => {
             </div>
           )}
         </div>
-
-        <Footer />
+        <div className="footer-profile">
+          <Footer />
+        </div>
       </div>
 
       {isCreateModalOpen && (

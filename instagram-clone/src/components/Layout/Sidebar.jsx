@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
@@ -11,12 +11,27 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import PanoramaFishEyeRoundedIcon from "@mui/icons-material/PanoramaFishEyeRounded";
 import GestureRoundedIcon from "@mui/icons-material/GestureRounded";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Create from "../Create";
 
 const Sidebar = ({ user }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [activeIcon, setActiveIcon] = useState("Home");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  // Checks if the location is the profile page or home page
+  useEffect(() => {
+    if (location.pathname === "/profile") {
+      if (user === null) {
+        navigate("/login");
+      } else {
+        setActiveIcon("Profile");
+      }
+    } else if (location.pathname === "/home") {
+      setActiveIcon("Home");
+    }
+  }, [location.pathname]);
 
   const handleIconClick = (iconName) => {
     setActiveIcon(iconName);
@@ -25,6 +40,7 @@ const Sidebar = ({ user }) => {
       setIsCreateModalOpen(true);
     }
   };
+
   const closeModal = () => {
     setIsCreateModalOpen(false);
   };
@@ -95,7 +111,14 @@ const Sidebar = ({ user }) => {
           <span className="side-text">Notifications</span>
         </div>
 
-        <div className="side-icons" onClick={() => handleIconClick("Create")}>
+        <div
+          className="side-icons"
+          onClick={
+            user === null
+              ? () => navigate("/login")
+              : () => handleIconClick("Create")
+          }
+        >
           <AddBoxOutlinedIcon className="side-icon" />
           <span className="side-text">Create</span>
         </div>

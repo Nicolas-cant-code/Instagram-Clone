@@ -78,7 +78,9 @@ const Sidebar = ({ user }) => {
       <div className="top-sidebar-elements">
         <Link to="/home" className="logo-link">
           <div
-            className={`side-icons ${activeIcon === "Home" ? "active" : ""}`}
+            className={`side-icons ${
+              activeIcon === "Home" ? "active" : ""
+            } home`}
             onClick={() => handleIconClick("Home")}
           >
             <HomeIcon className="side-icon" />
@@ -86,7 +88,7 @@ const Sidebar = ({ user }) => {
           </div>
         </Link>
 
-        <div className="side-icons">
+        <div className="side-icons mobile">
           <SearchIcon className="side-icon" />
           <span className="side-text">Search</span>
         </div>
@@ -106,7 +108,7 @@ const Sidebar = ({ user }) => {
           <span className="side-text">Messages</span>
         </div>
 
-        <div className="side-icons">
+        <div className="side-icons mobile">
           <FavoriteBorderIcon className="side-icon" />
           <span className="side-text">Notifications</span>
         </div>
@@ -139,17 +141,17 @@ const Sidebar = ({ user }) => {
       </div>
 
       <div className="bottom-sidebar-elements">
-        <div className="side-icons">
+        <div className="side-icons mobile">
           <PanoramaFishEyeRoundedIcon className="side-icon" />
           <span className="side-text">Meta AI</span>
         </div>
 
-        <div className="side-icons">
+        <div className="side-icons mobile">
           <GestureRoundedIcon className="side-icon" />
           <span className="side-text">Threads</span>
         </div>
 
-        <div className="side-icons">
+        <div className="side-icons mobile">
           <MenuIcon className="side-icon" />
           <span className="side-text">More</span>
         </div>

@@ -88,6 +88,9 @@ const Posts = ({ post }) => {
           <strong>{username}</strong>
           {post.caption}
         </span>
+        <span style={{ marginTop: "10px", color: "#737373", fontSize: "14px" }}>
+          Add a comment...
+        </span>
       </div>
 
       {isEditModalOpen && (

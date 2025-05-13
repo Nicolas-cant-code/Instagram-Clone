@@ -178,3 +178,20 @@
   margin-left: -3px;
   margin-bottom: 16px;
 }
+
+@media (max-width: 768px) {
+  .home {
+    width: 100vw;
+    margin-left: 0;
+  }
+  .home-container {
+    padding: 0 5%;
+  }
+  .home-content {
+    width: 100%;
+    padding: 0;
+  }
+  .home-right-side {
+    display: none;
+  }
+}

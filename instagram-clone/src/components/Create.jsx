@@ -115,7 +115,13 @@ const Create = ({ user, closeModal, update, post }) => {
   return (
     <div
       className="create"
-      style={bFile ? { width: "50vw", transition: "0.3s" } : {}}
+      style={
+        bFile && innerWidth > 768
+          ? { width: "50vw", transition: "0.3s" }
+          : (bFile && innerWidth < 768) || update
+          ? { width: "80vw", transition: "0.3s" }
+          : {}
+      }
     >
       {/* Checks to see if the user is updating or making a new post */}
       {update ? (

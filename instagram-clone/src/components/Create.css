@@ -152,6 +152,8 @@
   }
   .post {
     padding: 13vh 12px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
   }
   .create-post img {
     width: 65%;

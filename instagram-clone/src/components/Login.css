@@ -83,3 +83,19 @@
   width: 965px;
   margin-top: auto;
 }
+
+@media (max-width: 768px) {
+  .login {
+    width: 100vw;
+    transform: translateX(0);
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+  .login-container {
+    padding: 10px 20px;
+    margin-top: 30%;
+  }
+  .footer-width {
+    display: none;
+  }
+}

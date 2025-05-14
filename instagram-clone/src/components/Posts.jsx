@@ -34,7 +34,6 @@ const Posts = ({ post }) => {
   const { profile_pic, username } = user || {};
 
   const handleEditClick = () => {
-    console.log(user);
     if (user === null) {
       return;
     } else {

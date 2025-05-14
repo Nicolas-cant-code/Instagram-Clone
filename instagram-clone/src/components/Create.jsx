@@ -52,9 +52,12 @@ const Create = ({ user, closeModal, update, post }) => {
           timestamp: serverTimestamp(),
         });
 
-        await db.collection("users").add({
-          posts: +1,
-        });
+        await db
+          .collection("users")
+          .doc(user.uid)
+          .update({
+            posts: user.posts + 1,
+          });
 
         navigate("/");
         alert("Post uploaded successfully!");

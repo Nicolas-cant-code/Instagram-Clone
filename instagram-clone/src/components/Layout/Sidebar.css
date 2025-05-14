@@ -92,6 +92,21 @@
   border: 2px solid rgb(38, 38, 38);
 }
 
+@media (max-width: 940px) {
+  .sidebar {
+    width: 80px;
+  }
+  .side-text {
+    display: none;
+  }
+  .logo {
+    display: none;
+  }
+  .side-icons svg {
+    margin-right: 0px;
+  }
+}
+
 @media (max-width: 768px) {
   .sidebar {
     display: flex;
@@ -103,24 +118,19 @@
     border-top: 1px solid rgb(219, 219, 219);
     border-right: none;
     padding: 0;
+    overflow: hidden;
   }
 
   .mobile {
     display: none;
   }
 
-  .side-text {
-    display: none;
-  }
   .side-icons {
     box-sizing: border-box;
     padding: 0;
     height: 100%;
     margin: 0;
     justify-content: center;
-  }
-  .side-icons svg {
-    margin-right: 0px;
   }
   .side-icons:hover {
     background-color: transparent;
@@ -140,9 +150,6 @@
 
   .home {
     margin-left: auto;
-  }
-  .logo {
-    display: none;
   }
   .side-icon svg {
     margin: 0;

@@ -20,6 +20,11 @@ const Edit = ({ user, closeModal, post }) => {
           <span
             onClick={() => {
               db.collection("posts").doc(post.id).delete();
+              db.collection("users")
+                .doc(userId)
+                .update({
+                  posts: user.posts - 1,
+                });
               navigate("/");
               alert("Post deleted successfully!");
               closeModal();

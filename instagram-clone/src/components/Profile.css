@@ -8,6 +8,10 @@
   height: 100%;
 }
 
+.mobile-nav {
+  display: none;
+}
+
 .profile-container {
   margin: 0 19.561%;
   height: 100%;
@@ -225,4 +229,131 @@
 .footer-profile {
   height: 31%;
   display: flex;
+}
+
+@media (max-width: 768px) {
+  .profile {
+    width: 100vw;
+    margin-left: 0;
+    margin-top: 50px;
+    box-sizing: border-box;
+  }
+
+  .profile-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .profile-pic {
+    padding: 0;
+    height: 110px;
+  }
+  .profile-pic img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-username span {
+    font-size: 16px;
+    margin-right: 4px;
+  }
+  .profile-username button {
+    font-size: 0.65em;
+    padding: 0 0.5rem;
+    margin-right: 4px;
+  }
+
+  .profile-name {
+    margin-left: -30%;
+  }
+  .profile-post-image {
+    width: 31%;
+    margin: 1rem 1%;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+
+  .user-posts {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .mobile-nav {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    height: 49px;
+    width: 100vw;
+    background-color: white;
+    border-bottom: 1px solid rgb(219, 219, 219);
+    position: fixed;
+    top: 0;
+    z-index: 10;
+  }
+  .mobile-nav-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-profile {
+    display: none;
+  }
+
+  .posts {
+    width: 100vw;
+  }
+  .top-items {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .top-items div {
+    margin-right: 1.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .posts {
+    width: 100%;
+  }
+  .profile-username {
+    margin-top: -0.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    margin-left: -1rem;
+  }
+  .profile-name {
+    position: absolute;
+    top: 190px;
+    left: 48px;
+    margin-left: 0;
+  }
+  .follow {
+    position: absolute;
+    top: 230px;
+    left: 30px;
+    font-size: 12px;
+  }
+  .follow p {
+    margin-right: 10%;
+  }
+
+  .highlight {
+    margin-top: 1rem;
+  }
+  .top-items p {
+    display: none;
+  }
+  .top-items div {
+    margin-right: 0;
+  }
+  .top-items svg {
+    width: 24px;
+    height: 24px;
+  }
 }

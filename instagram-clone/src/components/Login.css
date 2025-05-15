@@ -4,8 +4,9 @@
   align-items: center;
   height: 100vh;
   width: 350px;
-  position: relative;
-  transform: translateX(220%);
+  position: absolute;
+  transform: translate(-50%, -5%);
+  left: 50%;
 }
 
 .login-container {
@@ -80,16 +81,19 @@
 }
 
 .footer-width {
-  width: 965px;
+  width: 100vw;
+  flex-wrap: wrap;
   margin-top: auto;
 }
 
 @media (max-width: 768px) {
   .login {
     width: 100vw;
-    transform: translateX(0);
+    transform: translate(0, 0);
     padding: 2rem;
     box-sizing: border-box;
+    position: relative;
+    left: 0;
   }
   .login-container {
     padding: 10px 20px;
